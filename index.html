@@ -275,14 +275,15 @@
       window.addEventListener(
         "load",
         () => {
-          var image = new Image();
-          //   image.crossOrigin = ""
+          
+          const image = new Image();
+            // image.crossOrigin = "anonymous";
+          image.src = "./image.png"; // MUST BE SAME DOMAIN!!!
           image.onload = function () {
             // render(image);
             console.log("loaded");
             startup(image);
           };
-          image.src = "./image.png"; // MUST BE SAME DOMAIN!!!
           console.log("wtf");
         },
 
