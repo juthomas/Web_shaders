@@ -8,6 +8,7 @@
     <style>
         body {
             margin: 0;
+            background-color:aquamarine;
         }
 
         #glcanvas {
@@ -44,9 +45,25 @@
              
             uniform float u_time;
             varying vec2 tPos;
-             
+
+            float rand(float co){
+                return fract(sin(dot(vec2(co, co + 0.2) , vec2(12.9898, 78.233))) * 43758.5453);
+            }
+            float rand2(float co){
+                return fract(sin(dot(vec2(co, co + 0.2) , vec2(9.9898, 83.233))) * 33758.5453);
+            }
             void main(void) {
-                gl_FragColor = vec4(tPos, (mod(u_time / 100., 100.) / 100. ),1.0 );
+                float speed = 300.;
+                vec2 resolution = vec2(100., 100.);
+                vec2 offset = vec2(mod( rand(floor(u_time / speed)) * 100.  ,resolution.x)  / resolution.x  ,
+                                   mod( rand2( floor(u_time / speed)) * 100.  ,resolution.y)  / resolution.y  );
+                vec2 size = vec2(1. / resolution.x, 1. / resolution.y);
+                if (tPos.x > offset.x && tPos.x < offset.x + size.x && tPos.y > offset.y && tPos.y < offset.y + size.y   )
+                {
+                    gl_FragColor = vec4(1.,0.725,0.282,1.0 );
+                }
+                else
+                gl_FragColor = vec4(0,0,0,0.0 );
             }
             </script>
 
